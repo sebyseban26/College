@@ -1,0 +1,45 @@
+{% extends "Admin_dashboard.html" %}
+{% block content %}
+
+<!-- Student Details -->
+    <div class="container">
+        <h1>Details of Students</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Address</th>
+                        <th>Age</th>
+                        <th>Joining Date</th>
+                        <th>Course Name</th>
+                        <th>Course Fee</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in student %}
+                    <tr>
+                        <td>{{ s.studentname }}</td>
+                        <td>{{ s.address }}</td>
+                        <td>{{ s.age }}</td>
+                        <td>{{ s.joiningdate }}</td>
+                        <td>{{ s.course.coursename }}</td>
+                        <td>{{ s.course.fees }}</td>
+                        <td>
+                            <button class="btn-edit"><a href="{% url 'edit' s.id %}">Edit</a></button>
+                        </td>
+                        <td>
+                            <button class="btn-delete"><a href="{% url 'delete' s.id %}">Delete</a></button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No student records found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "Home_dashboard.html" %}
+
+{% block title %}Teacher Login{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 380px; border-radius: 12px;">
+        <h3 class="text-center text-primary mb-3">Login</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger py-2 mb-3 text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'login_page' %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="mb-0">
+                Don't have an account? 
+                <a href="{% url 'signup_page' %}" class="text-decoration-none text-primary fw-semibold">Sign up here</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Optional custom style -->
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: "Poppins", sans-serif;
+    }
+    .card {
+        border: none;
+    }
+</style>
+{% endblock %}

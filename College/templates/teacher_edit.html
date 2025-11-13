@@ -1,0 +1,62 @@
+{% extends "teacher_dashboard.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card shadow p-4 mx-auto" style="max-width: 700px;">
+        <h3 class="text-center text-primary mb-3">Update details</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info text-center">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'teacher_edit' teacher.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <input type="text" class="form-control mb-3" name="fname" placeholder="First Name" value="{{teacher.user.first_name}}" required>
+            <input type="text" class="form-control mb-3" name="lname" placeholder="Last Name" value="{{teacher.user.last_name}}" required>
+            <input type="text" class="form-control mb-3" name="username" placeholder="User Name" value="{{teacher.user.username}}" required>
+            <input type="text" class="form-control mb-3" name="address" placeholder="Address" value="{{teacher.address}}" required>
+            <input type="number" class="form-control mb-3" name="age" placeholder="Age" value="{{teacher.age}}" required>
+             <!-- ✅ Email validation -->
+            <input type="email" class="form-control mb-3" name="email"
+       placeholder="Email (e.g. name@gmail.in)"
+       pattern="[a-zA-Z0-9._%+-]+@gmail\.in"
+       title="Enter a valid Gmail address ending with .in"
+       value="{{ teacher.user.email }}" required>
+
+            <!-- ✅ 10-digit phone validation -->
+            <input type="tel" class="form-control mb-3" name="phone" placeholder="Phone (10 digits)" 
+                   pattern="[0-9]{10}" title="Enter 10 digit phone number" value="{{teacher.phone}}" required>
+
+
+            <div class="form-group">
+                <img src="{{teacher.image.url}}" alt="" style="width: 100px;height: 100px;">
+                <label for="image" class="form-label">Upload Image:</label>
+                <input type="file" name="image" class="form-control-mb-3">
+            </div>
+
+             <select class="drop form-control mb-3" name="course" id="course" required>
+                {% for c in course %}
+                <option value="{{ c.id }}" {% if c.id == teacher.course.id %}selected{% endif %}>{{ c.coursename }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary btn-block mt-2">Update</button>
+        </form>
+    </div>
+</div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectedValue = "{{ teacher.course.id }}";
+            const dropdown = document.getElementById('course');
+            for (let option of dropdown.options) {
+                if (option.value === selectedValue) {
+                    option.style.display = 'none';
+                }
+            }
+        });
+    </script>
+{% endblock %}

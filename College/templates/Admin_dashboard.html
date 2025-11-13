@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            height: 100%;
+            width: 220px;
+            background-color: #343a40;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            display: block;
+            color: #ffffff;
+            padding: 12px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+            text-decoration: none;
+        }
+        .content {
+            margin-left: 230px;
+            margin-top: 70px;
+            padding: 20px;
+        }
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <a class="navbar-brand" href="#">ADMIN DASHBOARD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- Sidebar -->
+     <div class="sidebar">
+        <a href="{% url 'course' %}">Add Course</a>
+        <a href="{% url 'student' %}">Add Student</a>
+        <a href="{% url 'show_teachers' %}">View Teachers</a>
+        <a href="{% url 'show_student' %}">View Students</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div> 
+
+    <!-- Main Content -->
+    <div class="content">
+        {% block content %}
+        <div class="container-fluid">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h4>Welcome to the Admin Dashboard</h4>
+                    <p class="text-muted">Use the sidebar to manage courses, students, and teachers.</p>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+   
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
